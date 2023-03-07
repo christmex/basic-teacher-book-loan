@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('qty');
             $table->date('loaned_at');
             $table->date('returned_at')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

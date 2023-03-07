@@ -19,6 +19,7 @@ class Transaction extends Model
         'qty',
         'loaned_at',
         'returned_at',
+        'description',
     ];
 
     public function SchoolYear()

@@ -66,6 +66,7 @@ class TransactionCrudController extends CrudController
         CRUD::column('qty');
         CRUD::column('loaned_at');
         CRUD::column('returned_at');
+        CRUD::column('description');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -109,6 +110,7 @@ class TransactionCrudController extends CrudController
         CRUD::field('qty')->attributes(['min' => 0]);
         CRUD::field('loaned_at')->value(now());
         // CRUD::field('returned_at');
+        CRUD::field('description')->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
