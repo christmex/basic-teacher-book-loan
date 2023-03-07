@@ -76,7 +76,7 @@ class SchoolYearCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(SchoolYearRequest::class);
-        CRUD::field('school_year_name');
+        CRUD::field('school_year_name')->attributes(['placeholder' => 'Ex: '.date('Y').'/'.date('Y')+1]);
         CRUD::field('is_active');
         
 

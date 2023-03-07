@@ -86,15 +86,23 @@ class TransactionCrudController extends CrudController
 
         CRUD::addField([
             'type' => 'select',
+            'label' => 'Active School Year',
             'name' => 'school_year_id', // the relationship name in your Migration
             'entity' => 'Schoolyear', // the relationship name in your Model
             'attribute' => 'school_year_name',
+            'options'   => (function ($query) {
+                return $query->where('is_Active', 1)->get();
+            }), 
         ]);
         CRUD::addField([
             'type' => 'select',
+            'label' => 'Active Semester',
             'name' => 'semester_id', // the relationship name in your Migration
             'entity' => 'Semester', // the relationship name in your Model
             'attribute' => 'semester_name',
+            'options'   => (function ($query) {
+                return $query->where('is_Active', 1)->get();
+            }), 
         ]);
         CRUD::field('member_id');
         CRUD::field('book_id');
