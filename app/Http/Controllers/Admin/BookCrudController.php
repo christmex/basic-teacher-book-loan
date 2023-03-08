@@ -55,8 +55,8 @@ class BookCrudController extends CrudController
             'width'  => '130px',
         ],);
         CRUD::column('book_name');
-        CRUD::column('book_sku');
         CRUD::column('book_stock');
+        CRUD::column('book_sku');
         // CRUD::column('book_cover');
 
         /**
