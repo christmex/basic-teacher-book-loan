@@ -33,7 +33,7 @@
 		@include('crud::inc.grouped_errors')
 
 		  <form method="post"
-		  		action="{{ url($crud->route.'/add-book-stock/'.$entry->getKey()) }}"
+		  		action="{{ url($crud->route.'/'.$entry->getKey()) }}"
 				@if ($crud->hasUploadFields('create'))
 				enctype="multipart/form-data"
 				@endif

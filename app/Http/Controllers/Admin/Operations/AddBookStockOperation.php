@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin\Operations;
 use App\Models\Semester;
 use App\Models\SchoolYear;
 use App\Models\BookHistory;
-use Illuminate\Http\Request;
 use Prologue\Alerts\Facades\Alert;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\BookStockRequest;
@@ -77,6 +76,8 @@ trait AddBookStockOperation
         CRUD::setValidation(BookStockRequest::class);
         CRUD::field('book_name')->attributes(['readonly' => 'readonly','disabled' => 'disabled'])->value($this->crud->getCurrentEntry()->book_name);
 
+        CRUD::field('previous_book_stock')->attributes(['readonly' => 'readonly','disabled' => 'disabled'])->value($this->crud->getCurrentEntry()->book_stock);
+        
         CRUD::field('book_stock')->attributes(['min' => 0])->type('number');
 
         CRUD::field('book_stock_description')->type('textarea')->attributes([
@@ -138,6 +139,10 @@ trait AddBookStockOperation
         $this->crud->setSubHeading('adding stock');
 
         $this->data['crud'] = $this->crud;
+
+        //  Reset the route in form
+        $this->data['crud']->route .= '/add-book-stock';
+
         $this->data['entry'] = $this->crud->getCurrentEntry();
         $this->data['saveAction'] = $this->crud->getSaveAction();
         $this->data['title'] = "Add book stock ";
