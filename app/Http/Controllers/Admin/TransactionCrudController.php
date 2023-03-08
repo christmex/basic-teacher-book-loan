@@ -109,7 +109,7 @@ class TransactionCrudController extends CrudController
         CRUD::field('book_id');
         CRUD::field('qty')->attributes(['min' => 0]);
         CRUD::field('loaned_at')->value(now());
-        // CRUD::field('returned_at');
+        
         CRUD::field('description')->type('textarea');
 
         /**
@@ -128,5 +128,6 @@ class TransactionCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+        CRUD::field('returned_at')->value(now());
     }
 }
