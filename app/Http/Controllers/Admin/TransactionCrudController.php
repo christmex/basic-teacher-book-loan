@@ -40,7 +40,7 @@ class TransactionCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::with(['Book']);
-        CRUD::removeButtons(['update','delete']);
+        CRUD::removeButtons(['update','delete','show']);
 
         CRUD::addColumn([
             'name'      => 'row_number',
