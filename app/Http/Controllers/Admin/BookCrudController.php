@@ -109,6 +109,10 @@ class BookCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-        CRUD::removeField('book_stock');
+        CRUD::modifyField('book_stock',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
     }
 }

@@ -43,6 +43,8 @@ trait AddBookStockOperation
 
         CRUD::operation('addBookStock', function () {
             CRUD::loadDefaultOperationSettingsFromConfig();
+            $this->crud->enableInlineErrors();
+            $this->crud->enableGroupedErrors();
             // CRUD::setupDefaultSaveActions();
         });
 

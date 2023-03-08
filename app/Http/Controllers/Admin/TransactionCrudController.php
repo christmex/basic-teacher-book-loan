@@ -39,12 +39,24 @@ class TransactionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::with(['Book']);
+        CRUD::removeButtons(['update','delete']);
+
         CRUD::addColumn([
             'name'      => 'row_number',
             'type'      => 'row_number',
             'label'     => '#',
             'orderable' => false,
         ])->makeFirstColumn();
+        
+        CRUD::addColumn([
+            'name'      => 'Book.book_cover', // The db column name
+            'label'     => 'Book Cover', // Table column heading
+            'type'      => 'image',
+            'disk'   => 'public', 
+            'height' => '130px',
+            'width'  => '130px',
+        ],);
         CRUD::addColumn([
             "name" => "school_year_id",
             "label" => "School Year",
@@ -61,6 +73,7 @@ class TransactionCrudController extends CrudController
             "type" => "select",
             "attribute" => "semester_name"
         ]);
+       
         CRUD::column('member_id');
         CRUD::column('book_id');
         CRUD::column('qty');
@@ -106,7 +119,17 @@ class TransactionCrudController extends CrudController
             }), 
         ]);
         CRUD::field('member_id');
-        CRUD::field('book_id');
+        // CRUD::field('book_id');
+        CRUD::addField([
+            'type' => 'select',
+            'label' => 'Book',
+            'name' => 'book_id', // the relationship name in your Migration
+            'entity' => 'Book', // the relationship name in your Model
+            'attribute' => 'book_name',
+            'options'   => (function ($query) {
+                return $query->where('book_stock','>=', 1)->get();
+            }), 
+        ]);
         CRUD::field('qty')->attributes(['min' => 0]);
         CRUD::field('loaned_at')->value(now());
         
@@ -129,5 +152,35 @@ class TransactionCrudController extends CrudController
     {
         $this->setupCreateOperation();
         CRUD::field('returned_at')->value(now());
+        CRUD::modifyField('book_id',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
+        CRUD::modifyField('qty',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
+        CRUD::modifyField('loaned_at',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
+        CRUD::modifyField('semester_id',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
+        CRUD::modifyField('school_year_id',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
+        CRUD::modifyField('member_id',[
+            'attributes' => [
+                'readonly' => 'readonly',
+            ]
+        ]);
     }
 }
