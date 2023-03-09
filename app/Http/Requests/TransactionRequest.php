@@ -24,12 +24,13 @@ class TransactionRequest extends FormRequest
      */
     public function rules()
     {
+        $find = request('book_id') ? \App\Models\Book::find(request('book_id'))->book_stock : 1;
         return [
             'school_year_id' => 'required',
             'semester_id' => 'required',
             'member_id' => 'required',
             'book_id' => 'required',
-            'qty' => 'required|integer|min:1',
+            'qty' => 'required|integer|min:1|max:'.$find,
             'loaned_at' => 'required',
         ];
     }

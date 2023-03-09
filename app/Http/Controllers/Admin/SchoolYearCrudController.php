@@ -39,6 +39,8 @@ class SchoolYearCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
+
         CRUD::column('school_year_name');
         CRUD::addColumn([
             'name' => 'is_active',
