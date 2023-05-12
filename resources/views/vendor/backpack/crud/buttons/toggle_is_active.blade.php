@@ -36,8 +36,8 @@
               error: function(result) {
                   // Show an alert with the result
                   new Noty({
-                    type: "warning",
-                    text: "<strong>Failed</strong><br>Activating {{$crud->entity_name}}. Please try again."
+                    type: "error",
+                    text: "<strong>Failed</strong><br>"+JSON.parse(result.responseText).error
                   }).show();
               }
           });
