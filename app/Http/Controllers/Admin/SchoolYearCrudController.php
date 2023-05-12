@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\SchoolYearRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -18,6 +19,8 @@ class SchoolYearCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+
+    use \App\Http\Controllers\Admin\Operations\ToggleIsActiveOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -99,4 +102,9 @@ class SchoolYearCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+    
+    
+
+    
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\TransactionRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
@@ -18,6 +19,7 @@ class TransactionCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -121,7 +123,9 @@ class TransactionCrudController extends CrudController
         CRUD::field('member_id');
         // CRUD::field('book_id');
         CRUD::addField([
-            'type' => 'select',
+            'type' => 'select_multiple',
+            // 'allows_multiple' => true,
+            'multiple' => true,
             'label' => 'Book',
             'name' => 'book_id', // the relationship name in your Migration
             'entity' => 'Book', // the relationship name in your Model
@@ -130,7 +134,22 @@ class TransactionCrudController extends CrudController
                 return $query->where('book_stock','>=', 1)->get();
             }), 
         ]);
-        CRUD::field('qty')->attributes(['min' => 0]);
+
+        // CRUD::field('comments')->subfields([['name' => 'body']]);
+        // CRUD::addField([
+        //     'type' => 'checklist',
+        //     'label' => 'Book',
+        //     'name' => 'book_id', // the relationship name in your Migration
+        //     'entity' => 'Book', // the relationship name in your Model
+        //     'attribute' => 'book_name',
+        //     // 'options'   => (function ($query) {
+        //     //     return $query->where('book_stock','>=', 1)->get();
+        //     // }), 
+        //     // 'model'     => "\App\Models\Book",
+        //     'pivot'     => false,
+        //     'number_of_columns' => 3,
+        // ]);
+        CRUD::field('qty')->attributes(['min' => 1])->default(1);
         CRUD::field('loaned_at')->value(now());
         
         CRUD::field('description')->type('textarea');
@@ -183,4 +202,7 @@ class TransactionCrudController extends CrudController
             ]
         ]);
     }
+
+    
+
 }

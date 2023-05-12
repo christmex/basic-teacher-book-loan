@@ -77,8 +77,8 @@ class BookCrudController extends CrudController
         CRUD::setValidation(BookRequest::class);
 
         CRUD::field('book_name');
+        CRUD::field('book_stock')->attributes(['min' => 1])->default(1);
         CRUD::field('book_sku');
-        CRUD::field('book_stock')->attributes(['min' => 0]);
         // CRUD::field('book_cover')->type('file');
         CRUD::addField(
             [   // Upload
