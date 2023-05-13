@@ -100,6 +100,19 @@ class TransactionCrudController extends CrudController
     {
         CRUD::setValidation(TransactionRequest::class);
 
+        // dd($this->crud->route);
+        
+        // $this->crud->route
+        // request()->fullUrlWithQuery(['bar' => 'baz']);
+        CRUD::removeSaveAction('save_and_new');
+        $this->crud->addSaveAction([
+            'name' => 'save_with_current_user',
+            'button_text' => 'Save and new item',
+            'redirect' => function($crud, $request, $itemId) {
+                // ?member_id='.request()->has('member_id') ? request('member_id') : 1
+                return $crud->route.'/create?member_id='.$request->member_id;
+            }, // what's the redirect URL, where the user will be taken after saving?
+        ]);        
         CRUD::addField([
             'type' => 'select',
             'label' => 'Active School Year',
@@ -120,12 +133,12 @@ class TransactionCrudController extends CrudController
                 return $query->where('is_Active', 1)->get();
             }), 
         ]);
-        CRUD::field('member_id');
+        CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1);
         // CRUD::field('book_id');
         CRUD::addField([
-            'type' => 'select_multiple',
+            'type' => 'select',
             // 'allows_multiple' => true,
-            'multiple' => true,
+            // 'multiple' => true,
             'label' => 'Book',
             'name' => 'book_id', // the relationship name in your Migration
             'entity' => 'Book', // the relationship name in your Model

@@ -27,6 +27,11 @@ trait RemoveBookStockOperation
             'operation' => 'removeBookStock',
         ]);
 
+        // if i remove this that will show error, because i put 
+        Route::get($segment.'/remove-book-stock', function(){
+            return redirect()->route('book.index');
+        })->name($routeName.'.redirect');
+
         Route::post($segment.'/remove-book-stock/{id}', [
             'as'        => $routeName.'.removeBookStock',
             'uses'      => $controller.'@PostremoveBookStock',
@@ -60,12 +65,12 @@ trait RemoveBookStockOperation
 
         CRUD::field('previous_book_stock')->attributes(['readonly' => 'readonly','disabled' => 'disabled'])->value($this->crud->getCurrentEntry()->book_stock);
 
-        CRUD::field('book_stock')->attributes(['min' => 0])->type('number');
+        CRUD::field('book_stock')->attributes(['min' => 1])->type('number')->default(1);
 
         CRUD::field('book_stock_description')->type('textarea')->attributes([
             'placeholder' => 'Ex: Kembalikan buku '
         ]);
-        CRUD::field('book_stock_added_at')->value(now())->type('date');
+        CRUD::field('book_stock_added_at')->label('Book stock remove at')->value(now())->type('date');
 
         CRUD::addSaveAction([
             'name' => 'removeBookStock',

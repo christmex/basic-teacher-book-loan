@@ -27,6 +27,11 @@ trait AddBookStockOperation
             'operation' => 'addBookStock',
         ]);
 
+        // if i remove this that will show error, because i put 
+        Route::get($segment.'/add-book-stock', function(){
+            return redirect()->route('book.index');
+        })->name($routeName.'.redirect');
+
         Route::post($segment.'/add-book-stock/{id}', [
             'as'        => $routeName.'.addBookStock',
             'uses'      => $controller.'@PostaddBookStock',
@@ -80,7 +85,7 @@ trait AddBookStockOperation
 
         CRUD::field('previous_book_stock')->attributes(['readonly' => 'readonly','disabled' => 'disabled'])->value($this->crud->getCurrentEntry()->book_stock);
         
-        CRUD::field('book_stock')->attributes(['min' => 0])->type('number');
+        CRUD::field('book_stock')->attributes(['min' => 1])->type('number')->default(1);
 
         CRUD::field('book_stock_description')->type('textarea')->attributes([
             'placeholder' => 'Ex: Ambil buku baru dari dimas'
@@ -94,6 +99,10 @@ trait AddBookStockOperation
             },
             'button_text' => 'Add Book Stock',
         ]);
+
+        // CRUD::setOperationSetting('showCancelButton',false);
+        // CRUD::setOperationSetting('showCancelButton',false);
+
     }
 
     /**

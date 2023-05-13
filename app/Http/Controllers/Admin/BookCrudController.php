@@ -43,6 +43,8 @@ class BookCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        
+        // CRUD::setOperationSetting('showDeleteButton', true);
         CRUD::addColumn([
             'name'      => 'book_cover', // The db column name
             'label'     => 'Book Cover', // Table column heading
@@ -64,6 +66,7 @@ class BookCrudController extends CrudController
          * - CRUD::column('price')->type('number');
          * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
          */
+        CRUD::setOperationSetting('lineButtonsAsDropdown', true);
     }
 
     /**
@@ -113,6 +116,43 @@ class BookCrudController extends CrudController
             'attributes' => [
                 'readonly' => 'readonly',
             ]
+        ]);
+        // CRUD::setOperationSetting('showDeleteButton', true);
+    }
+
+    protected function setupShowOperation(){
+        $this->crud->setOperationSetting('tabsEnabled', true);
+        // $this->crud->setOperationSetting('tabsType', 'horizontal');
+        // $this->setupListOperation();
+        CRUD::column('book_name')->tab('Book Data');
+        CRUD::column('book_stock')->tab('Book Data');
+        CRUD::column('book_sku')->tab('Book Data');
+        $this->crud->addColumn([
+            'name' => 'book_history_desc',
+            'label' => 'Book History Desc',
+            'type' => 'select',
+            'entity' => 'bookHistory',
+            'attribute' => 'description',
+            'model' => 'App\Models\BookHistory',
+            'tab' => 'Book History',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'book_history_qty',
+            'label' => 'Book History QTY',
+            'type' => 'select',
+            'entity' => 'bookHistory',
+            'attribute' => 'qty',
+            'model' => 'App\Models\BookHistory',
+            'tab' => 'Book History',
+        ]);
+        $this->crud->addColumn([
+            'name' => 'book_history_date',
+            'label' => 'Book History Date',
+            'type' => 'select',
+            'entity' => 'bookHistory',
+            'attribute' => 'book_stock_added_at',
+            'model' => 'App\Models\BookHistory',
+            'tab' => 'Book History',
         ]);
     }
 }

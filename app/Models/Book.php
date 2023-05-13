@@ -45,4 +45,8 @@ class Book extends Model
 
     // return $this->attributes[{$attribute_name}]; // uncomment if this is a translatable field
     }
+
+    public function bookHistory(){
+        return $this->hasMany('App\Models\BookHistory', 'book_id','id');
+    }
 }
