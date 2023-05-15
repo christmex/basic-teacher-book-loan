@@ -19,4 +19,8 @@ class Member extends Model
     {
         $this->attributes['member_name'] = ucwords($value);
     }
+    public function loanBook($crud = false)
+    {
+        return '<a class="btn btn-sm btn-link" href="'.route('transaction.create').'?member_id='.$this->id.'" data-toggle="tooltip" title="Loan a book"><i class="la la-folder-plus"></i> Loan a book</a>';
+    }
 }

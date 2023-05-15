@@ -39,8 +39,10 @@ class MemberCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        // $this->crud->addButtonFromView('line', 'openTransactionForm', 'openTransactionForm', 'beginning');
+        // add a button whose HTML is returned by a method in the CRUD model
+        $this->crud->addButtonFromModelFunction('line', 'loanBook', 'loanBook', 'beginning');
         CRUD::column('member_name');
-
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
