@@ -137,6 +137,7 @@ class TransactionCrudController extends CrudController
         // CRUD::field('book_id');
         CRUD::addField([
             'type' => 'select',
+            // 'model' => "App\Models\Book",
             // 'allows_multiple' => true,
             // 'multiple' => true,
             'label' => 'Book',

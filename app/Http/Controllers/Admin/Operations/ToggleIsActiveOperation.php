@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Operations;
 
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Response;
 
 trait ToggleIsActiveOperation
 {
