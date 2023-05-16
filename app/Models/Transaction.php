@@ -26,10 +26,11 @@ class Transaction extends Model
     {
         parent::boot();
         static::creating(function($obj) {
-            // check if the book_id exist or true
+            // check if the book_id exist
             if($obj->book_id){
                 // find the book data by id
                 $find = Book::find($obj->book_id);
+                // Kalau buku ada stock boleh pinjam
                 if($find->book_stock > 0 && $find->book_stock - $obj->qty >= 0){
                     $find->book_stock = $find->book_stock - $obj->qty;
                     $find->save();
@@ -37,7 +38,7 @@ class Transaction extends Model
             }
         });
 
-        // Kalau buku sudah tidak ada stock tidak boleh pinjam
+        
     }
 
     public function SchoolYear()
