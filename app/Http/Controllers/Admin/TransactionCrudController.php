@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\TransactionRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -42,6 +44,7 @@ class TransactionCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::with(['Book']);
+        CRUD::orderBy('returned_at','asc');
         CRUD::removeButtons(['update','delete','show']);
 
         CRUD::addColumn([
@@ -215,6 +218,66 @@ class TransactionCrudController extends CrudController
                 'readonly' => 'readonly',
             ]
         ]);
+    }
+
+
+
+
+    // Bulk transaction section
+    public function bulkReturnBook()
+    {
+        $this->crud->hasAccessOrFail('create');
+        
+        $querySelectTransaction = $this->getSelectedTransaction($this->crud->getRequest()->input('entries'));
+
+        // Cek jika data ada
+        if(count($querySelectTransaction) < 1){
+            return Response()->json([
+                'error' => "the selected transaction entries already returned"
+            ], 500); // Status code here
+            
+        }
+
+        DB::beginTransaction();
+        try {
+            // update book stock here
+            foreach ($querySelectTransaction as $key => $value) {
+                $value->update(['returned_at' => date('Y-h-m H:i:s')]);
+                Book::find($value->book_id)->increment('book_stock',$value->qty);
+            }
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            $th->getMessage();
+            DB::rollback();
+        }
+    }
+
+    protected function getSelectedTransaction($entries){
+        return $this->crud->model->where('returned_at','=',null)->where(function($query) use($entries) {
+            $query->whereIn('id', $entries);
+        })->get();
+    }
+
+
+
+    protected function setupBulkReturnBookRoutes($segment, $routeName, $controller)
+    {
+        Route::post($segment.'/bulk-return-book', [
+            'as'        => $routeName.'.bulkReturnBook',
+            'uses'      => $controller.'@bulkReturnBook',
+            'operation' => 'bulkReturnBook',
+        ]);
+    }
+
+    protected function setupBulkReturnBookDefaults()
+    {
+        $this->crud->allowAccess('bulkReturnBook');
+
+        $this->crud->operation('list', function () {
+            $this->crud->enableBulkActions();
+            $this->crud->addButton('bottom', 'bulk_returned_book', 'view', 'bulk_returned_book', 'beginning');
+        });
     }
 
     

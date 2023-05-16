@@ -6,3 +6,7 @@ kemudian di bagian controller transaction kita tangkat nilai query string kemudi
 
 
 buat new operation untuk pengembalian buku, buat bulk operation
+
+
+
+buat new operation di member, button redirect, button namenya return book, nnti tingal redirect ke transaction.list kemudian masukkan query string member_id, di bagian transactionsetuplist kita ambil query string tersebut kemudian filter berdasarkan query string which is member_id
