@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('member_id')->constrained()->onDelete('cascade');
             $table->foreignId('book_id')->constrained();
             $table->integer('qty');
-            $table->date('loaned_at');
-            $table->date('returned_at')->nullable();
+            $table->datetime('loaned_at');
+            $table->datetime('returned_at')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -29,14 +29,13 @@ class TransactionRequest extends FormRequest
         // $find = request('book_id') ? \App\Models\Book::whereIn('id', $request)->get() : 1;
         // $find = request('book_id') ? dd(\App\Models\Book::whereIn('book_id',request('book_id'))->book_stock) : 1;
         $find = request('book_id') ? \App\Models\Book::find(request('book_id'))->book_stock : 1;
-        
+        // dd(request('loaned_at'));
         return [
             'school_year_id' => 'required',
             'semester_id' => 'required',
             'member_id' => 'required',
             'book_id' => 'required',
             'qty' => 'required|integer|min:1|max:'.$find,
-            // 'qty' => 'required',
             'loaned_at' => 'required',
         ];
     }

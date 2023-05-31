@@ -190,7 +190,7 @@ trait AddBookStockOperation
                 return redirect(url($this->crud->route));
             }
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             // show a bubble with the error message
             Alert::error("Error, " . $e->getMessage())->flash();
 

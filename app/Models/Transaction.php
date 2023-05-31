@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
@@ -20,6 +21,13 @@ class Transaction extends Model
         'loaned_at',
         'returned_at',
         'description',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
+        'loaned_at' => 'datetime:Y-m-d',
+        'returned_at' => 'datetime:Y-m-d',
     ];
 
     public static function boot()
@@ -58,5 +66,12 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Models\Book', 'book_id','id');
     }
+
+    // public function setLoanedAtAttribute($value)
+    // {
+    //     $this->attributes['loaned_at'] = Carbon::parse($value)->format('Y-m-d H:i:s');
+        
+    // }
+    // ->format('d-m-Y H:i:s');
 
 }

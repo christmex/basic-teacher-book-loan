@@ -53,6 +53,23 @@ class TransactionCrudController extends CrudController
             'label'     => '#',
             'orderable' => false,
         ])->makeFirstColumn();
+        CRUD::column('member_id');
+        // CRUD::addColumn([
+        //     'name'      => 'member_id', // The db column name
+        //     'label'     => 'Member', // Table column heading
+        //     'type'      => 'custom_html',
+        //     'value'      => function($entry) {
+        //         if(!empty($entry->returned_at)){
+        //             return $entry->member->member_name.'<br><span class="badge badge-success">Dikembalikan '.$entry->returned_at->diffForHumans().'<span>';
+        //         }
+        //         return $entry->member->member_name;
+        //     },
+        // ],);
+        CRUD::addColumn([
+            'name'      => 'Book.book_name', // The db column name
+            'label'     => 'Book Title', // Table column heading
+            'type'      => 'select',
+        ],);
         
         CRUD::addColumn([
             'name'      => 'Book.book_cover', // The db column name
@@ -79,11 +96,27 @@ class TransactionCrudController extends CrudController
             "attribute" => "semester_name"
         ]);
        
-        CRUD::column('member_id');
         CRUD::column('book_id');
         CRUD::column('qty');
-        CRUD::column('loaned_at');
-        CRUD::column('returned_at');
+        // CRUD::column('loaned_at');
+        CRUD::addColumn([
+            'name' => 'loaned_at',
+            'type'      => 'custom_html',
+            'value'      => function($entry) {
+                if(!empty($entry->loaned_at)){
+                    return '<span class="badge badge-success">'.$entry->loaned_at->diffForHumans().'<span>';
+                }
+            },
+        ]);
+        CRUD::addColumn([
+            'name' => 'returned_at',
+            'type'      => 'custom_html',
+            'value'      => function($entry) {
+                if(!empty($entry->returned_at)){
+                    return '<span class="badge badge-success">'.$entry->returned_at->diffForHumans().'<span>';
+                }
+            },
+        ]);
         CRUD::column('description');
 
         /**
@@ -142,7 +175,7 @@ class TransactionCrudController extends CrudController
             'type' => 'select',
             // 'model' => "App\Models\Book",
             // 'allows_multiple' => true,
-            // 'multiple' => true,
+            'multiple' => true,
             'label' => 'Book',
             'name' => 'book_id', // the relationship name in your Migration
             'entity' => 'Book', // the relationship name in your Model
@@ -167,7 +200,7 @@ class TransactionCrudController extends CrudController
         //     'number_of_columns' => 3,
         // ]);
         CRUD::field('qty')->attributes(['min' => 1])->default(1);
-        CRUD::field('loaned_at')->value(now());
+        CRUD::field('loaned_at')->type('datetime')->value(now());
         
         CRUD::field('description')->type('textarea');
 
@@ -242,7 +275,7 @@ class TransactionCrudController extends CrudController
         try {
             // update book stock here
             foreach ($querySelectTransaction as $key => $value) {
-                $value->update(['returned_at' => date('Y-h-m H:i:s')]);
+                $value->update(['returned_at' => date('Y-m-d H:i:s')]);
                 Book::find($value->book_id)->increment('book_stock',$value->qty);
             }
             DB::commit();
