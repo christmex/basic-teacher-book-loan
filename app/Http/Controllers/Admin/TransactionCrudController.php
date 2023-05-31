@@ -53,6 +53,19 @@ class TransactionCrudController extends CrudController
             'label'     => '#',
             'orderable' => false,
         ])->makeFirstColumn();
+        CRUD::addColumn([
+            'name'      => 'Book.book_cover', // The db column name
+            'label'     => 'Book Cover', // Table column heading
+            'type'      => 'image',
+            'disk'   => 'public', 
+            'height' => '130px',
+            'width'  => '130px',
+        ],);
+        CRUD::addColumn([
+            'name'      => 'Book.book_name', // The db column name
+            'label'     => 'Book Title', // Table column heading
+            'type'      => 'select',
+        ],);
         CRUD::column('member_id');
         // CRUD::addColumn([
         //     'name'      => 'member_id', // The db column name
@@ -65,20 +78,6 @@ class TransactionCrudController extends CrudController
         //         return $entry->member->member_name;
         //     },
         // ],);
-        CRUD::addColumn([
-            'name'      => 'Book.book_name', // The db column name
-            'label'     => 'Book Title', // Table column heading
-            'type'      => 'select',
-        ],);
-        
-        CRUD::addColumn([
-            'name'      => 'Book.book_cover', // The db column name
-            'label'     => 'Book Cover', // Table column heading
-            'type'      => 'image',
-            'disk'   => 'public', 
-            'height' => '130px',
-            'width'  => '130px',
-        ],);
         CRUD::addColumn([
             "name" => "school_year_id",
             "label" => "School Year",
@@ -104,7 +103,7 @@ class TransactionCrudController extends CrudController
             'type'      => 'custom_html',
             'value'      => function($entry) {
                 if(!empty($entry->loaned_at)){
-                    return '<span class="badge badge-success">'.$entry->loaned_at->diffForHumans().'<span>';
+                    return '<span class="badge badge-secondary">'.$entry->loaned_at->diffForHumans().'<span>';
                 }
             },
         ]);
