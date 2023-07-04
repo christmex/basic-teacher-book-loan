@@ -39,10 +39,11 @@ class MemberCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::setEntityNameStrings('Guru','Daftar Guru');
         // $this->crud->addButtonFromView('line', 'openTransactionForm', 'openTransactionForm', 'beginning');
         // add a button whose HTML is returned by a method in the CRUD model
         $this->crud->addButtonFromModelFunction('line', 'loanBook', 'loanBook', 'beginning');
-        CRUD::column('member_name');
+        CRUD::column('member_name')->label('Nama Guru');
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -60,7 +61,7 @@ class MemberCrudController extends CrudController
     {
         CRUD::setValidation(MemberRequest::class);
 
-        CRUD::field('member_name');
+        CRUD::field('member_name')->label('Nama Guru');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

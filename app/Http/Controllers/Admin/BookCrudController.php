@@ -43,11 +43,11 @@ class BookCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        
+        CRUD::setEntityNameStrings('Buku','Daftar Buku');
         // CRUD::setOperationSetting('showDeleteButton', true);
         CRUD::addColumn([
             'name'      => 'book_cover', // The db column name
-            'label'     => 'Book Cover', // Table column heading
+            'label'     => 'Foto Buku', // Table column heading
             'type'      => 'image',
             // 'prefix' => 'folder/subfolder/',
             // image from a different disk (like s3 bucket)
@@ -55,10 +55,10 @@ class BookCrudController extends CrudController
             // optional width/height if 25px is not ok with you
             'height' => '130px',
             'width'  => '130px',
-        ],);
-        CRUD::column('book_name');
-        CRUD::column('book_stock');
-        CRUD::column('book_sku');
+        ]);
+        CRUD::column('book_name')->label('Nama Buku');
+        CRUD::column('book_stock')->label('Stok Buku');
+        CRUD::column('book_sku')->label('Barcode Buku');
         // CRUD::column('book_cover');
 
         /**
@@ -79,14 +79,14 @@ class BookCrudController extends CrudController
     {
         CRUD::setValidation(BookRequest::class);
 
-        CRUD::field('book_name');
-        CRUD::field('book_stock')->attributes(['min' => 1])->default(1);
-        CRUD::field('book_sku');
+        CRUD::field('book_name')->label('Nama Buku');
+        CRUD::field('book_stock')->attributes(['min' => 1])->default(1)->label('Stok Buku');
+        CRUD::field('book_sku')->label('Barcode Buku')->hint('Masukkan stok buku yang ada');
         // CRUD::field('book_cover')->type('file');
         CRUD::addField(
             [   // Upload
                 'name'      => 'book_cover',
-                'label'     => 'Image',
+                'label'     => 'Foto Buku',
                 'type'      => 'upload',
                 'upload'    => true,
                 // 'disk'      => 'public', // if you store files in the /public folder, please omit this; if you store them in /storage or S3, please specify it;

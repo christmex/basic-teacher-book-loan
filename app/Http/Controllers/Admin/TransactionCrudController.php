@@ -43,6 +43,7 @@ class TransactionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
         CRUD::removeButtons(['update','delete','show']);
@@ -150,7 +151,7 @@ class TransactionCrudController extends CrudController
         ]);        
         CRUD::addField([
             'type' => 'select',
-            'label' => 'Active School Year',
+            'label' => 'Tahun ajaran yang sedang berjalan',
             'name' => 'school_year_id', // the relationship name in your Migration
             'entity' => 'Schoolyear', // the relationship name in your Model
             'attribute' => 'school_year_name',
@@ -160,7 +161,7 @@ class TransactionCrudController extends CrudController
         ]);
         CRUD::addField([
             'type' => 'select',
-            'label' => 'Active Semester',
+            'label' => 'Semester yang sedang berjalan',
             'name' => 'semester_id', // the relationship name in your Migration
             'entity' => 'Semester', // the relationship name in your Model
             'attribute' => 'semester_name',
@@ -168,14 +169,14 @@ class TransactionCrudController extends CrudController
                 return $query->where('is_Active', 1)->get();
             }), 
         ]);
-        CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1);
+        CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
         // CRUD::field('book_id');
         CRUD::addField([
             'type' => 'select',
             // 'model' => "App\Models\Book",
             // 'allows_multiple' => true,
             'multiple' => true,
-            'label' => 'Book',
+            'label' => 'Nama Buku',
             'name' => 'book_id', // the relationship name in your Migration
             'entity' => 'Book', // the relationship name in your Model
             'attribute' => 'book_name',
@@ -198,10 +199,10 @@ class TransactionCrudController extends CrudController
         //     'pivot'     => false,
         //     'number_of_columns' => 3,
         // ]);
-        CRUD::field('qty')->attributes(['min' => 1])->default(1);
-        CRUD::field('loaned_at')->type('datetime')->value(now());
+        CRUD::field('qty')->attributes(['min' => 1])->default(1)->label('Jumlah yang dipinjam');
+        CRUD::field('loaned_at')->type('datetime')->value(now())->label('Dipinjam Pada?');
         
-        CRUD::field('description')->type('textarea');
+        CRUD::field('description')->type('textarea')->hint('Jika ada catatan untuk peminjaman ini, jika tidak ada tidak usah di isi');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

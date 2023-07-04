@@ -1,5 +1,5 @@
 @if ($crud->hasAccess('bulkReturnBook') && $crud->get('list.bulkActions'))
-  <a href="javascript:void(0)" onclick="bulkReturnBookEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="la la-sync"></i> Return Book</a>
+  <a href="javascript:void(0)" onclick="bulkReturnBookEntries(this)" class="btn btn-sm btn-secondary bulk-button"><i class="la la-sync"></i> Kembalikan Buku</a>
 @endif
 
 @push('after_scripts')
