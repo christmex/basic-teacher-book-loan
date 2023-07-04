@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\BookRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use League\CommonMark\Extension\Attributes\Node\Attributes;
 
 /**
  * Class BookCrudController
@@ -55,6 +56,9 @@ class BookCrudController extends CrudController
             // optional width/height if 25px is not ok with you
             'height' => '130px',
             'width'  => '130px',
+            'attributes' => [
+                'accept' => 'image/*;capture=camera'
+            ]
         ]);
         CRUD::column('book_name')->label('Nama Buku');
         CRUD::column('book_stock')->label('Stok Buku');
