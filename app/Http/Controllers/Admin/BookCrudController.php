@@ -86,7 +86,7 @@ class BookCrudController extends CrudController
 
         CRUD::field('book_name')->label('Nama Buku');
         CRUD::field('book_stock')->attributes(['min' => 1])->default(1)->label('Stok Buku');
-        CRUD::field('book_sku')->label('Barcode Buku')->hint('Masukkan stok buku yang ada');
+        CRUD::field('book_sku')->label('Barcode Buku')->hint('Masukkan barcode buku');
         // CRUD::field('book_cover')->type('file');
         CRUD::addField(
             [   // Upload
