@@ -23,7 +23,7 @@ class LivewireSelect extends Component
             $this->field_value = old($this->field['name']);
         }
         if($this->field['value'] || old($this->field['name'])){
-            $this->form_search = $this->field['model']::where('book_name',$this->field_value)->first()->book_name;
+            $this->form_search = $this->field['model']::where('id',$this->field_value)->first()->{$this->field['attribute']};
         }
     }
 

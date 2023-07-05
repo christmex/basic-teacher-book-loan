@@ -46,7 +46,7 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        CRUD::removeButtons(['update','delete','show']);
+        CRUD::removeButtons(['delete','update','show']);
 
         CRUD::addColumn([
             'name'      => 'row_number',
@@ -246,12 +246,8 @@ class TransactionCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-        CRUD::field('returned_at')->value(now());
-        CRUD::modifyField('book_id',[
-            'attributes' => [
-                'readonly' => 'readonly',
-            ]
-        ]);
+        // CRUD::field('returned_at')->value(now());
+
         CRUD::modifyField('qty',[
             'attributes' => [
                 'readonly' => 'readonly',
@@ -272,11 +268,16 @@ class TransactionCrudController extends CrudController
                 'readonly' => 'readonly',
             ]
         ]);
-        CRUD::modifyField('member_id',[
-            'attributes' => [
-                'readonly' => 'readonly',
-            ]
-        ]);
+        // CRUD::modifyField('member_id',[
+        //     'attributes' => [
+        //         'readonly' => 'readonly',
+        //     ]
+        // ]);
+        // CRUD::modifyField('book_id',[
+        //     'attributes' => [
+        //         'readonly' => 'readonly',
+        //     ]
+        // ]);
     }
 
 
