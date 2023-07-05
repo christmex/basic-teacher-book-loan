@@ -96,17 +96,8 @@ class TransactionCrudController extends CrudController
             "attribute" => "semester_name"
         ]);
        
-        CRUD::column('book_id');
+        // CRUD::column('book_id');
         CRUD::column('qty');
-        CRUD::addColumn([
-            'name' => 'returned_at',
-            'type'      => 'custom_html',
-            'value'      => function($entry) {
-                if(!empty($entry->returned_at)){
-                    return '<span class="badge badge-success">'.$entry->returned_at->diffForHumans().'<span>';
-                }
-            },
-        ]);
         // CRUD::column('loaned_at');
         CRUD::addColumn([
             'name' => 'loaned_at',
@@ -117,6 +108,16 @@ class TransactionCrudController extends CrudController
                 }
             },
         ]);
+        CRUD::addColumn([
+            'name' => 'returned_at',
+            'type'      => 'custom_html',
+            'value'      => function($entry) {
+                if(!empty($entry->returned_at)){
+                    return '<span class="badge badge-success">'.$entry->returned_at->diffForHumans().'<span>';
+                }
+            },
+        ]);
+        
         CRUD::column('description');
 
         /**

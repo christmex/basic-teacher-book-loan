@@ -49,4 +49,9 @@ class Book extends Model
     public function bookHistory(){
         return $this->hasMany('App\Models\BookHistory', 'book_id','id');
     }
+
+    public function getBookLoanned()
+    {
+        return $this->hasMany('App\Models\Transaction', 'book_id','id')->where('returned_at',NULL);
+    }
 }
