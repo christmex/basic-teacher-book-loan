@@ -169,20 +169,46 @@ class TransactionCrudController extends CrudController
                 return $query->where('is_Active', 1)->get();
             }), 
         ]);
-        CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
-        // CRUD::field('book_id');
+        // CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
         CRUD::addField([
-            'type' => 'select',
-            // 'model' => "App\Models\Book",
-            // 'allows_multiple' => true,
-            'multiple' => true,
+            'name' => 'member_id',
+            'type' => 'livewire_select',
+            'label' => 'Nama Guru',
+            'hint' => 'Contoh: Pinta',
+            'attribute' => 'member_name',
+            'model' => \App\Models\Member::class,
+            'is_book' => false,
+            'attributes' => [
+                'autocomplete' => 'off'
+            ],
+        ]);
+
+
+        // CRUD::field('book_id');
+        // CRUD::addField([
+        //     'type' => 'select',
+        //     // 'model' => "App\Models\Book",
+        //     // 'allows_multiple' => true,
+        //     'multiple' => true,
+        //     'label' => 'Nama Buku',
+        //     'name' => 'book_id', // the relationship name in your Migration
+        //     'entity' => 'Book', // the relationship name in your Model
+        //     'attribute' => 'book_name',
+        //     'options'   => (function ($query) {
+        //         return $query->where('book_stock','>=', 1)->get();
+        //     }), 
+        // ]);
+        CRUD::addField([
+            'name' => 'book_id',
+            'type' => 'livewire_select',
             'label' => 'Nama Buku',
-            'name' => 'book_id', // the relationship name in your Migration
-            'entity' => 'Book', // the relationship name in your Model
+            'hint' => 'Contoh: Tematik',
             'attribute' => 'book_name',
-            'options'   => (function ($query) {
-                return $query->where('book_stock','>=', 1)->get();
-            }), 
+            'model' => \App\Models\Book::class,
+            'is_book' => true,
+            'attributes' => [
+                'autocomplete' => 'off'
+            ],
         ]);
 
         // CRUD::field('comments')->subfields([['name' => 'body']]);
