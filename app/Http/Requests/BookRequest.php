@@ -31,7 +31,7 @@ class BookRequest extends FormRequest
                 Rule::unique('books')->ignore(request()->id),
             ],
             // 'book_sku' => 'required',
-            'book_stock' => 'required|integer|min:1',
+            'book_stock' => 'required|integer|min:0',
             // 'book_cover' => 'sometimes|required|mimes:jpeg,png,jpg|max:2000|dimensions:min_width=100,min_height=100',
         ];
     }
