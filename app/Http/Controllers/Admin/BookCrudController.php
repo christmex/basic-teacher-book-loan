@@ -60,7 +60,7 @@ class BookCrudController extends CrudController
                 'accept' => 'image/*;capture=camera'
             ]
         ]);
-        CRUD::column('book_name')->label('Nama Buku');
+        CRUD::column('book_name')->label('Nama Buku')->limit(255);
         CRUD::column('book_stock')->label('Stok Buku');
         CRUD::column('book_sku')->label('Barcode Buku');
         // CRUD::column('book_cover');
