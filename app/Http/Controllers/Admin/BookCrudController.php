@@ -46,6 +46,7 @@ class BookCrudController extends CrudController
     {
         CRUD::setEntityNameStrings('Buku','Daftar Buku');
         // CRUD::setOperationSetting('showDeleteButton', true);
+        CRUD::column('book_name')->label('Nama Buku')->limit(255);
         CRUD::addColumn([
             'name'      => 'book_cover', // The db column name
             'label'     => 'Foto Buku', // Table column heading
@@ -60,7 +61,7 @@ class BookCrudController extends CrudController
                 'accept' => 'image/*;capture=camera'
             ]
         ]);
-        CRUD::column('book_name')->label('Nama Buku')->limit(255);
+        
         CRUD::column('book_stock')->label('Stok Buku');
         CRUD::column('book_sku')->label('Barcode Buku');
         // CRUD::column('book_cover');
