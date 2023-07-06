@@ -87,25 +87,15 @@ class TransactionCrudController extends CrudController
         //     'label'     => 'Book Title', // Table column heading
         //     'type'      => 'select',
         // ],);
-        // CRUD::addColumn([
-        //     "label" => "Book Title",
-        //     "type" => "select",
-        //     "name" => "book_title",
-        //     "entity" => "Book.EmployeeRole",
-        //     "attribute" => "employee_role_name",
-        //     "model" => "App\Models\EmployeePosition",
-        //     'searchLogic' => function ($query, $column, $searchTerm) {
-        //         $query->orWhereHas('getPrimaryPosition.EmployeeRole', function ($q) use ($column, $searchTerm) {
-        //             $q->where('employee_role_name', 'like', '%'.$searchTerm.'%');
-        //         });
-        //     },
-        //     'orderable'  => true,
-        //     'orderLogic' => function ($query, $column, $columnDirection) {
-        //         return $query->withCount('getPrimaryPosition')
-        //             ->orderBy('get_primary_position_count', $columnDirection);
-        //     }
-        // ]);
-        CRUD::column('book_id');
+        CRUD::addColumn([
+            "label" => "Book Title",
+            "type" => "select",
+            "name" => "book_id",
+            "entity" => "Book",
+            "attribute" => "book_name",
+            "model" => "App\Models\Book",
+        ]);
+        // CRUD::column('book_id');
         CRUD::column('member_id');
         // CRUD::addColumn([
         //     'name'      => 'member_id', // The db column name
