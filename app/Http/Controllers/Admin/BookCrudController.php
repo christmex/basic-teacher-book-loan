@@ -155,6 +155,7 @@ class BookCrudController extends CrudController
             'attribute' => 'description',
             'model' => 'App\Models\BookHistory',
             'tab' => 'Book History',
+            'limit' => 1000,
         ]);
         $this->crud->addColumn([
             'name' => 'book_history_qty',
