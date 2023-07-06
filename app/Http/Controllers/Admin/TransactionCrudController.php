@@ -94,6 +94,7 @@ class TransactionCrudController extends CrudController
             "entity" => "Book",
             "attribute" => "book_name",
             "model" => "App\Models\Book",
+            "limit" => 1000,
         ]);
         // CRUD::column('book_id');
         CRUD::column('member_id');
@@ -165,7 +166,13 @@ class TransactionCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(TransactionRequest::class);
-
+        Widget::add([
+            'type'         => 'alert',
+            'class'        => 'alert alert-danger mb-2',
+            'heading'      => 'Please remember',
+            'content'      => 'Sebelum guru meminjam buku, cek dahulu apakah ada buku yang belum dikembalikan',
+            'close_button' => true, // show close button or not
+        ]);
         // dd($this->crud->route);
         
         // $this->crud->route
