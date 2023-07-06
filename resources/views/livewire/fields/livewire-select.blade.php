@@ -17,5 +17,14 @@
                 <li class="list-group-item disabled">Masukkan lebih banyak kata kunci untuk filter yang lebih cocok</li>
             </ul>
         @endif
+        @if(!empty($field['show_image']) && !empty($form_image))
+            <a class="btn btn-primary collapsed btn-small mt-2" data-toggle="collapse" href="#showImage" aria-expanded="false" aria-controls="showImage">Lihat Gambar</a>
+            <div class="collapse" id="showImage">
+                <div class="card card-body">
+                    <img src="{{ asset('storage/'.$form_image) }}" alt="" class="img-thumbnail">
+                </div>
+            </div>
+            
+        @endif
     </div>
 </div>

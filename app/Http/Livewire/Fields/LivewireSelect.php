@@ -10,6 +10,7 @@ class LivewireSelect extends Component
     public $field;
     public $field_value;
     public $form_search;
+    public $form_image;
     public $search_result;
     public $modelDefined;
 
@@ -51,5 +52,8 @@ class LivewireSelect extends Component
         $this->search_result = NULL;
         $this->field_value = $id;
         $this->form_search = $value;
+        if(!empty($this->field['show_image'])){
+            $this->form_image = $this->field['model']::find($id)->{$this->field['show_image']};
+        }
     }
 }

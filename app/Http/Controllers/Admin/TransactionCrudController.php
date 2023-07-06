@@ -46,7 +46,7 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        CRUD::removeButtons(['delete','update','show']);
+        CRUD::removeButtons(['update','show']);
 
         CRUD::addColumn([
             'name'      => 'row_number',
@@ -207,6 +207,7 @@ class TransactionCrudController extends CrudController
             'attribute' => 'book_name',
             'model' => \App\Models\Book::class,
             'is_book' => true,
+            'show_image' => 'book_cover',
             'attributes' => [
                 'autocomplete' => 'off'
             ],
