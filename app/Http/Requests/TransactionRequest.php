@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TransactionRequest extends FormRequest
@@ -33,8 +34,13 @@ class TransactionRequest extends FormRequest
         return [
             'school_year_id' => 'required',
             'semester_id' => 'required',
-            'member_id' => 'required',
+            // 'member_id' => 'required',
             'book_id' => 'required',
+            // Cek apakah guru sudah meminjam di tahun ajaran dan semester ini
+            'member_id' => [
+                'required',
+                Rule::unique('transactions')->where(fn ($query) => $query->where('school_year_id', request('school_year_id'))->where('semester_id', request('semester_id'))->where('book_id', request('book_id'))->where('returned_at', NULL))->ignore(request()->id)
+            ],
             'qty' => 'required|integer|min:1|max:'.$find,
             'loaned_at' => 'required',
         ];
@@ -60,7 +66,7 @@ class TransactionRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'member_id.unique' => 'Guru sudah meminjam buku ini di tahun ajaran dan semester yang dipilih, silahkan cek data transaksi'
         ];
     }
 }
