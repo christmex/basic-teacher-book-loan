@@ -47,7 +47,11 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        CRUD::removeButtons(['show']);
+        if(request('show_delete_button')){
+            CRUD::removeButtons(['show']);
+        }else {
+            CRUD::removeButtons(['delete','show']);
+        }
         
         if(request('filterUnreturn') || request('filterReturned')){
             Widget::add([
@@ -149,7 +153,7 @@ class TransactionCrudController extends CrudController
         ]);
         
         CRUD::column('description')->limit(1000);
-
+        CRUD::setOperationSetting('lineButtonsAsDropdown', true);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
