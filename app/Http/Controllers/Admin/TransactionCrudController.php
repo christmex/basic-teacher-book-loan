@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
+use Backpack\CRUD\app\Library\Widget;
 use Illuminate\Support\Facades\Route;
 use App\Http\Requests\TransactionRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -48,6 +49,14 @@ class TransactionCrudController extends CrudController
         CRUD::orderBy('returned_at','asc');
         CRUD::removeButtons(['update','show']);
         
+        if(request('filterUnreturn') || request('filterReturned')){
+            Widget::add([
+                'type'         => 'alert',
+                'class'        => 'alert alert-info mb-2',
+                'content'      => 'Filter sedang aktif',
+                'close_button' => true, // show close button or not
+            ]);
+        }
         if(request('filterUnreturn')){
             CRUD::addClause('where','returned_at',NULL);
         }
