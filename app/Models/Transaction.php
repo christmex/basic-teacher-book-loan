@@ -46,6 +46,8 @@ class Transaction extends Model
             }
         });
 
+        // do when delete the return back the stock
+
         
     }
 

@@ -47,7 +47,7 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        CRUD::removeButtons(['update','show']);
+        CRUD::removeButtons(['delete','show']);
         
         if(request('filterUnreturn') || request('filterReturned')){
             Widget::add([
