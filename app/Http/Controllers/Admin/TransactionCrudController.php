@@ -47,6 +47,17 @@ class TransactionCrudController extends CrudController
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
         CRUD::removeButtons(['update','show']);
+        
+        if(request('filterUnreturn')){
+            CRUD::addClause('where','returned_at',NULL);
+        }
+        if(request('filterReturned')){
+            CRUD::addClause('where','returned_at','!=',NULL);
+        }
+
+        CRUD::addButtonFromModelFunction('top', 'filterUnreturn', 'filterUnreturn', 'beginning');
+        CRUD::addButtonFromModelFunction('top', 'filterReturned', 'filterReturned', 'beginning');
+        // CRUD::button('create')->makeFirst();
 
         CRUD::addColumn([
             'name'      => 'row_number',

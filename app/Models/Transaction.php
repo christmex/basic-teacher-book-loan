@@ -74,4 +74,13 @@ class Transaction extends Model
     // }
     // ->format('d-m-Y H:i:s');
 
+    public function filterUnreturn()
+    {
+        return '<a class="btn btn-sm btn-link" href="?filterUnreturn=filterUnreturn" data-toggle="tooltip" title="Filter"><i class="la la-filter"></i> Filter Buku Yang Belum Kembali</a>';
+    }
+    public function filterReturned()
+    {
+        return '<a class="btn btn-sm btn-link" href="?filterReturned=filterReturned" data-toggle="tooltip" title="Filter"><i class="la la-filter"></i> Filter Buku Yang Sudah Kembali</a>';
+    }
+
 }
