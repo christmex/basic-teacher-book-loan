@@ -148,7 +148,7 @@ class TransactionCrudController extends CrudController
             },
         ]);
         
-        CRUD::column('description');
+        CRUD::column('description')->limit(1000);
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
