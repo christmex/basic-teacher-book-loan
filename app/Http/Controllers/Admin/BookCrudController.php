@@ -61,6 +61,12 @@ class BookCrudController extends CrudController
                 'accept' => 'image/*;capture=camera'
             ]
         ]);
+        CRUD::column('book_stock')->label('Stok Buku Yang Tersedia');
+        CRUD::addColumn([
+            "label" => "Total buku yang dipinjam",
+            "type" => "relationship_count",
+            "name" => "getBookLoanned",
+        ]);
         CRUD::addColumn([
             "label" => "Sedang dipinjam oleh",
             "type" => "select",
@@ -70,13 +76,8 @@ class BookCrudController extends CrudController
             "limit" => 1000,
             "model" => "App\Models\Transaction",
         ]);
-        CRUD::addColumn([
-            "label" => "Total buku yang dipinjam",
-            "type" => "relationship_count",
-            "name" => "getBookLoanned",
-            
-        ]);
-        CRUD::column('book_stock')->label('Stok Buku Yang Tersedia');
+        
+        
         // CRUD::column('book_sku')->label('Barcode Buku');
         // CRUD::column('book_cover');
 
