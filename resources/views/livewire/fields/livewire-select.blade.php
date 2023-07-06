@@ -1,7 +1,7 @@
 <div>
     {{-- Do your work, then step back. --}}
     <div class="form-group position-relative">
-        <input type="hidden" name="{{ $field['name'] }}"wire:model="field_value">
+        <input type="hidden" name="{{ $field['name'] }}" wire:model="field_value">
         <input type="text"
             wire:model.debounce.500ms="form_search"
             placeholder="Search {{$field['label']}}"

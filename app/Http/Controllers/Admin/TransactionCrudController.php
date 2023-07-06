@@ -47,7 +47,7 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        CRUD::removeButtons(['delete','show']);
+        CRUD::removeButtons(['show']);
         
         if(request('filterUnreturn') || request('filterReturned')){
             Widget::add([
@@ -213,6 +213,7 @@ class TransactionCrudController extends CrudController
             'label' => 'Nama Guru',
             'hint' => 'Contoh: Pinta',
             'attribute' => 'member_name',
+            'default' => request()->has('member_id') ? request('member_id') : NULL,
             'model' => \App\Models\Member::class,
             'is_book' => false,
             'attributes' => [

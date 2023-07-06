@@ -26,10 +26,15 @@ class LivewireSelect extends Component
         if($this->field['value'] || old($this->field['name'])){
             $this->form_search = $this->field['model']::where('id',$this->field_value)->first()->{$this->field['attribute']};
         }
+        if(!empty($this->field['default'])){
+            $this->field_value = $this->field['default'];
+            $this->form_search = $this->field['model']::where('id',$this->field_value)->first()->{$this->field['attribute']};
+        }
     }
 
     public function render()
     {
+        
         return view('livewire.fields.livewire-select');
     }
 
