@@ -6,4 +6,4 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('member') }}"><i class="nav-icon la la-users"></i> Guru</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('book') }}"><i class="nav-icon la la-book"></i> Buku</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('transaction') }}"><i class="nav-icon la la-folder-plus"></i> Peminjaman Buku</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('book-lack') }}"><i class="nav-icon la la-question"></i> Book lacks</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('book-lack') }}"><i class="nav-icon la la-folder-minus"></i> Kekurangan Buku</a></li>

@@ -39,6 +39,7 @@ class BookLackCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+        CRUD::removeButtons(['update','show']);
         CRUD::setEntityNameStrings('Kekurangan Buku','Daftar Kekurangan Buku');
         CRUD::addColumn([
             "name" => "school_year_id",
@@ -79,6 +80,7 @@ class BookLackCrudController extends CrudController
     {
         CRUD::setValidation(BookLackRequest::class);
 
+        CRUD::setEntityNameStrings('Kekurangan Buku','Kekurangan Buku');
         CRUD::addField([
             'type' => 'select',
             'label' => 'Tahun ajaran yang sedang berjalan',
@@ -99,19 +101,44 @@ class BookLackCrudController extends CrudController
                 return $query->where('is_Active', 1)->get();
             }), 
         ]);
-        CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
         CRUD::addField([
-            'type' => 'select',
-            'multiple' => true,
-            'label' => 'Nama Buku',
-            'name' => 'book_id', // the relationship name in your Migration
-            'entity' => 'Book', // the relationship name in your Model
-            'attribute' => 'book_name',
-            'options'   => (function ($query) {
-                return $query->where('book_stock','>=', 1)->get();
-            }), 
+            'name' => 'member_id',
+            'type' => 'livewire_select',
+            'label' => 'Nama Guru',
+            'hint' => 'Contoh: Pinta',
+            'attribute' => 'member_name',
+            'model' => \App\Models\Member::class,
+            'is_book' => false,
+            'attributes' => [
+                'autocomplete' => 'off'
+            ],
         ]);
-        CRUD::field('book_name');
+        CRUD::addField([
+            'name' => 'book_id',
+            'type' => 'livewire_select',
+            'label' => 'Cari Buku Yang Sudah Ada',
+            'hint' => 'Contoh: Tematik, jika data buku belum ada, silahkan menggunakan isian yg dibawah',
+            'attribute' => 'book_name',
+            'model' => \App\Models\Book::class,
+            'is_book' => true,
+            'attributes' => [
+                'autocomplete' => 'off'
+            ],
+        ]);
+
+        // CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
+        // CRUD::addField([
+        //     'type' => 'select',
+        //     'multiple' => true,
+        //     'label' => 'Nama Buku',
+        //     'name' => 'book_id', // the relationship name in your Migration
+        //     'entity' => 'Book', // the relationship name in your Model
+        //     'attribute' => 'book_name',
+        //     'options'   => (function ($query) {
+        //         return $query->where('book_stock','>=', 1)->get();
+        //     }), 
+        // ]);
+        CRUD::field('book_name')->label('Judul Buku')->hint('Buku yang belum terdata, silahkan masukkan judul buku');
         CRUD::field('qty')->attributes(['min' => 1])->default(1)->label('Jumlah yang kurang');
         CRUD::field('description');
 
