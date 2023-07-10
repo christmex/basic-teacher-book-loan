@@ -39,7 +39,10 @@ class BookLackCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::removeButtons(['update','show']);
+        CRUD::removeButtons(['show']);
+        if(!request('show_delete_button')){
+            CRUD::removeButtons(['delete']);
+        }
         CRUD::setEntityNameStrings('Kekurangan Buku','Daftar Kekurangan Buku');
         CRUD::addColumn([
             "name" => "school_year_id",
@@ -57,10 +60,10 @@ class BookLackCrudController extends CrudController
             "type" => "select",
             "attribute" => "semester_name"
         ]);
-        CRUD::column('member_id');
-        CRUD::column('book_id')->limit(1000);
-        CRUD::column('book_name')->limit(1000);
-        CRUD::column('qty');
+        CRUD::column('member_id')->limit(1000);
+        // CRUD::column('book_id')->limit(1000);
+        // CRUD::column('book_name')->limit(1000);
+        // CRUD::column('qty');
         CRUD::column('description')->limit(1000);
 
         /**
@@ -113,18 +116,18 @@ class BookLackCrudController extends CrudController
                 'autocomplete' => 'off'
             ],
         ]);
-        CRUD::addField([
-            'name' => 'book_id',
-            'type' => 'livewire_select',
-            'label' => 'Cari Buku Yang Sudah Ada',
-            'hint' => 'Contoh: Tematik, jika data buku belum ada, silahkan menggunakan isian yg dibawah',
-            'attribute' => 'book_name',
-            'model' => \App\Models\Book::class,
-            'is_book' => true,
-            'attributes' => [
-                'autocomplete' => 'off'
-            ],
-        ]);
+        // CRUD::addField([
+        //     'name' => 'book_id',
+        //     'type' => 'livewire_select',
+        //     'label' => 'Cari Buku Yang Sudah Ada',
+        //     'hint' => 'Contoh: Tematik, jika data buku belum ada, silahkan menggunakan isian yg dibawah',
+        //     'attribute' => 'book_name',
+        //     'model' => \App\Models\Book::class,
+        //     'is_book' => true,
+        //     'attributes' => [
+        //         'autocomplete' => 'off'
+        //     ],
+        // ]);
 
         // CRUD::field('member_id')->default(request()->has('member_id') ? request('member_id') : 1)->label('Nama Guru');
         // CRUD::addField([
@@ -138,8 +141,8 @@ class BookLackCrudController extends CrudController
         //         return $query->where('book_stock','>=', 1)->get();
         //     }), 
         // ]);
-        CRUD::field('book_name')->label('Judul Buku')->hint('Buku yang belum terdata, silahkan masukkan judul buku');
-        CRUD::field('qty')->attributes(['min' => 1])->default(1)->label('Jumlah yang kurang');
+        // CRUD::field('book_name')->label('Judul Buku')->hint('Buku yang belum terdata, silahkan masukkan judul buku');
+        // CRUD::field('qty')->attributes(['min' => 1])->default(1)->label('Jumlah yang kurang');
         CRUD::field('description');
 
         /**

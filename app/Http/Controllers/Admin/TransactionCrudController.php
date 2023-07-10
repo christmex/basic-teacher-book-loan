@@ -47,29 +47,51 @@ class TransactionCrudController extends CrudController
         CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
-        if(request('show_delete_button')){
-            CRUD::removeButtons(['show']);
+
+        CRUD::removeButtons(['show','update']);
+
+        if(!request('show_delete_button')){
+            CRUD::removeButtons(['delete']);
         }else {
-            CRUD::removeButtons(['delete','show']);
+            // CRUD::removeButtons(['delete','show','update']);
         }
         
-        if(request('filterUnreturn') || request('filterReturned')){
+        // if(request('filterShowAll') || request('filterReturned')){
+        //     Widget::add([
+        //         'type'         => 'alert',
+        //         'class'        => 'alert alert-info mb-2',
+        //         'content'      => 'Filter sedang aktif',
+        //         'close_button' => true, // show close button or not
+        //     ]);
+        // }
+        // if(request('filterUnreturn')){
+        //     CRUD::addClause('where','returned_at',NULL);
+        // }
+        // if(request('filterReturned')){
+        //     CRUD::addClause('where','returned_at','!=',NULL);
+        // }
+
+        if(request('filterShowAll')){
             Widget::add([
                 'type'         => 'alert',
-                'class'        => 'alert alert-info mb-2',
-                'content'      => 'Filter sedang aktif',
+                'class'        => 'alert alert-success mb-2',
+                'content'      => 'Ini adalah daftar semua peminjaman, baik yang sudah dikembalikan maupun sedang dipinjam.<br> Untuk melihat daftar peminjaman yang sedang berjalan saja silahkan klik tombol <strong>set ulang</strong> di bagian atas 👆',
                 'close_button' => true, // show close button or not
             ]);
-        }
-        if(request('filterUnreturn')){
+        }else{
+            Widget::add([
+                'type'         => 'alert',
+                'class'        => 'alert alert-success mb-2',
+                'content'      => 'Ini adalah daftar semua peminjaman yang belum dikembalikan <br> Untuk melihat semua peminjaman, silahkan klik <strong>Tampilkan semua 👇</strong>',
+                'close_button' => true, // show close button or not
+            ]);
             CRUD::addClause('where','returned_at',NULL);
         }
-        if(request('filterReturned')){
-            CRUD::addClause('where','returned_at','!=',NULL);
-        }
 
-        CRUD::addButtonFromModelFunction('top', 'filterUnreturn', 'filterUnreturn', 'beginning');
-        CRUD::addButtonFromModelFunction('top', 'filterReturned', 'filterReturned', 'beginning');
+
+        // CRUD::addButtonFromModelFunction('top', 'filterUnreturn', 'filterUnreturn', 'beginning');
+        // CRUD::addButtonFromModelFunction('top', 'filterReturned', 'filterReturned', 'beginning');
+        CRUD::addButtonFromModelFunction('top', 'filterShowAll', 'filterShowAll', 'end');
         // CRUD::button('create')->makeFirst();
 
         CRUD::addColumn([

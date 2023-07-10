@@ -46,8 +46,22 @@ class Transaction extends Model
             }
         });
 
-        // do when delete the return back the stock
+        // static::updating(function($obj) {
+        //     // Check if the book exist
+        //     if($obj->book_id){
 
+        //     }
+        // });
+
+        // do when delete the return back the stock
+        static::deleting(function($obj) {
+            // Check if the book exist
+            if($obj->book_id){
+                $find = Book::find($obj->book_id);
+                $find->book_stock = $find->book_stock + $obj->qty;
+                $find->save();
+            }
+        });
         
     }
 
@@ -83,6 +97,11 @@ class Transaction extends Model
     public function filterReturned()
     {
         return '<a class="btn btn-sm btn-link" href="?filterReturned=filterReturned" data-toggle="tooltip" title="Filter"><i class="la la-filter"></i> Filter Buku Yang Sudah Kembali</a>';
+    }
+
+    public function filterShowAll()
+    {
+        return '<a class="btn btn-sm btn-link" href="?filterShowAll=filterShowAll" data-toggle="tooltip" title="Filter"><i class="la la-filter"></i> Tampilkan Semua</a>';
     }
 
 }
