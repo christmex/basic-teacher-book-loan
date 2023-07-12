@@ -80,6 +80,7 @@ class BookCrudController extends CrudController
         
         // CRUD::column('book_sku')->label('Barcode Buku');
         // CRUD::column('book_cover');
+        CRUD::column('description');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -100,6 +101,7 @@ class BookCrudController extends CrudController
         CRUD::setValidation(BookRequest::class);
 
         CRUD::field('book_name')->label('Nama Buku');
+        
         CRUD::field('book_stock')->attributes(['min' => 1])->default(1)->label('Stok Buku');
         // CRUD::field('book_sku')->label('Barcode Buku')->hint('Masukkan barcode buku');
         // CRUD::field('book_cover')->type('file');
@@ -114,7 +116,7 @@ class BookCrudController extends CrudController
                 'temporary' => 10 // if using a service, such as S3, that requires you to make temporary URLs this will make a URL that is valid for the number of minutes specified
             ],
         );
-        
+        CRUD::field('description')->type('textarea');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

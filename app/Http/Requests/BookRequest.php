@@ -32,6 +32,7 @@ class BookRequest extends FormRequest
             ],
             // 'book_sku' => 'required',
             'book_stock' => 'required|integer|min:0',
+            'description' => 'required',
             // 'book_cover' => 'sometimes|required|mimes:jpeg,png,jpg|max:2000|dimensions:min_width=100,min_height=100',
         ];
     }

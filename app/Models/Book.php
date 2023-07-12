@@ -18,6 +18,7 @@ class Book extends Model
         'book_sku',
         'book_stock',
         'book_cover',
+        'description',
     ];
 
     public static function boot()

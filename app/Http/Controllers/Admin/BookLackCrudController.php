@@ -61,9 +61,9 @@ class BookLackCrudController extends CrudController
             "attribute" => "semester_name"
         ]);
         CRUD::column('member_id')->limit(1000);
-        // CRUD::column('book_id')->limit(1000);
-        // CRUD::column('book_name')->limit(1000);
-        // CRUD::column('qty');
+        CRUD::column('book_id')->limit(1000);
+        CRUD::column('book_name')->limit(1000);
+        CRUD::column('qty');
         CRUD::column('description')->limit(1000);
 
         /**
