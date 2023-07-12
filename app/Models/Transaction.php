@@ -57,9 +57,11 @@ class Transaction extends Model
         static::deleting(function($obj) {
             // Check if the book exist
             if($obj->book_id){
-                $find = Book::find($obj->book_id);
-                $find->book_stock = $find->book_stock + $obj->qty;
-                $find->save();
+                if($obj->returned_at == NULL){
+                    $find = Book::find($obj->book_id);
+                    $find->book_stock = $find->book_stock + $obj->qty;
+                    $find->save();
+                }
             }
         });
         

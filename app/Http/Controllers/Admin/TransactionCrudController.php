@@ -123,7 +123,7 @@ class TransactionCrudController extends CrudController
             "limit" => 1000,
         ]);
         // CRUD::column('book_id');
-        CRUD::column('member_id');
+        CRUD::column('member_id')->limit(1000);
         // CRUD::addColumn([
         //     'name'      => 'member_id', // The db column name
         //     'label'     => 'Member', // Table column heading
