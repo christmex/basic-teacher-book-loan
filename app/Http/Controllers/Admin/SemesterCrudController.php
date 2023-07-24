@@ -30,7 +30,7 @@ class SemesterCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Semester::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/semester');
-        CRUD::setEntityNameStrings('semester', 'semesters');
+        CRUD::setEntityNameStrings('Semester', 'Daftar Semester');
     }
 
     /**
@@ -41,9 +41,10 @@ class SemesterCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('semester_name');
+        CRUD::column('semester_name')->label('Semester');
         CRUD::addColumn([
             'name' => 'is_active',
+            'label' => 'Status Aktif',
             'wrapper' => [
                 'element' => 'span',
                 'class' => function ($crud, $column, $entry, $related_key) {
@@ -80,8 +81,8 @@ class SemesterCrudController extends CrudController
     {
         CRUD::setValidation(SemesterRequest::class);
 
-        CRUD::field('semester_name');
-        CRUD::field('is_active');
+        CRUD::field('semester_name')->label('Semester');
+        CRUD::field('is_active')->label('Status Aktif');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

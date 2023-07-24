@@ -31,7 +31,7 @@ class SchoolYearCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\SchoolYear::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/school-year');
-        CRUD::setEntityNameStrings('school year', 'school years');
+        CRUD::setEntityNameStrings('Tahun Ajaran', 'Daftar Tahun Ajaran');
     }
 
     /**
@@ -44,9 +44,10 @@ class SchoolYearCrudController extends CrudController
     {
         
 
-        CRUD::column('school_year_name');
+        CRUD::column('school_year_name')->label('Nama Tahun Ajaran');
         CRUD::addColumn([
             'name' => 'is_active',
+            'label' => 'Status Aktif',
             'wrapper' => [
                 'element' => 'span',
                 'class' => function ($crud, $column, $entry, $related_key) {
@@ -81,8 +82,8 @@ class SchoolYearCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(SchoolYearRequest::class);
-        CRUD::field('school_year_name')->attributes(['placeholder' => 'Ex: '.date('Y').'/'.date('Y')+1]);
-        CRUD::field('is_active');
+        CRUD::field('school_year_name')->label('Nama Tahun Ajaran')->attributes(['placeholder' => 'Ex: '.date('Y').'/'.date('Y')+1]);
+        CRUD::field('is_active')->label('Status Aktif');
         
 
         /**

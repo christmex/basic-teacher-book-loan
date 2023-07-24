@@ -28,7 +28,7 @@ class MemberCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Member::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/member');
-        CRUD::setEntityNameStrings('member', 'members');
+        CRUD::setEntityNameStrings('Guru', 'Daftar Guru');
     }
 
     /**

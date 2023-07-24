@@ -33,7 +33,7 @@ class TransactionCrudController extends CrudController
     {
         CRUD::setModel(\App\Models\Transaction::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/transaction');
-        CRUD::setEntityNameStrings('transaction', 'transactions');
+        CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
     }
 
     /**
@@ -44,7 +44,7 @@ class TransactionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setEntityNameStrings('Peminjaman Buku','Daftar Peminjaman Buku');
+        
         CRUD::with(['Book']);
         CRUD::orderBy('returned_at','asc');
 
@@ -102,7 +102,7 @@ class TransactionCrudController extends CrudController
         ])->makeFirstColumn();
         CRUD::addColumn([
             'name'      => 'Book.book_cover', // The db column name
-            'label'     => 'Book Cover', // Table column heading
+            'label'     => 'Foto Buku', // Table column heading
             'type'      => 'image',
             'disk'   => 'public', 
             'height' => '130px',
@@ -114,7 +114,7 @@ class TransactionCrudController extends CrudController
         //     'type'      => 'select',
         // ],);
         CRUD::addColumn([
-            "label" => "Book Title",
+            "label" => "Judul Buku",
             "type" => "select",
             "name" => "book_id",
             "entity" => "Book",
@@ -123,7 +123,7 @@ class TransactionCrudController extends CrudController
             "limit" => 1000,
         ]);
         // CRUD::column('book_id');
-        CRUD::column('member_id')->limit(1000);
+        CRUD::column('member_id')->limit(1000)->label('Nama Guru');
         // CRUD::addColumn([
         //     'name'      => 'member_id', // The db column name
         //     'label'     => 'Member', // Table column heading
@@ -137,7 +137,7 @@ class TransactionCrudController extends CrudController
         // ],);
         CRUD::addColumn([
             "name" => "school_year_id",
-            "label" => "School Year",
+            "label" => "Tahun Ajaran",
             "entity" => "SchoolYear",
             "model" => "App\Models\SchoolYear",
             "type" => "select",
@@ -153,10 +153,11 @@ class TransactionCrudController extends CrudController
         ]);
        
         // CRUD::column('book_id');
-        CRUD::column('qty');
+        CRUD::column('qty')->label('Jumlah Buku');
         // CRUD::column('loaned_at');
         CRUD::addColumn([
             'name' => 'loaned_at',
+            'label' => 'Dipinjam Pada',
             'type'      => 'custom_html',
             'value'      => function($entry) {
                 if(!empty($entry->loaned_at)){
@@ -166,6 +167,7 @@ class TransactionCrudController extends CrudController
         ]);
         CRUD::addColumn([
             'name' => 'returned_at',
+            'label' => 'Dikembalikan Pada',
             'type'      => 'custom_html',
             'value'      => function($entry) {
                 if(!empty($entry->returned_at)){
@@ -174,7 +176,7 @@ class TransactionCrudController extends CrudController
             },
         ]);
         
-        CRUD::column('description')->limit(1000);
+        CRUD::column('description')->limit(1000)->label('Deskripsi');
         CRUD::setOperationSetting('lineButtonsAsDropdown', true);
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -293,7 +295,7 @@ class TransactionCrudController extends CrudController
         CRUD::field('qty')->attributes(['min' => 1])->default(1)->label('Jumlah yang dipinjam');
         CRUD::field('loaned_at')->type('datetime')->value(now())->label('Dipinjam Pada?');
         
-        CRUD::field('description')->type('textarea')->hint('Jika ada catatan untuk peminjaman ini, jika tidak ada tidak usah di isi');
+        CRUD::field('description')->type('textarea')->hint('Jika ada catatan untuk peminjaman ini, jika tidak ada tidak usah di isi')->label('Deskripsi');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
